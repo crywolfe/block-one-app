@@ -47,10 +47,10 @@ export class AppComponent implements OnInit, OnDestroy {
           .getEosBlock(this.headBlockNumber)
           .subscribe((eosBlock) => {
             const newEosBlock: EosBlock = {
-              blockNumber: eosBlock.blockNumber,
+              block_num: eosBlock.block_num,
               timestamp: eosBlock.timestamp,
               transactions: eosBlock.transactions,
-              blockHashId: eosBlock.blockHashId
+              id: eosBlock.id
             };
             this.eosBlocks.push(newEosBlock);
             console.log({ insideEosBlock: eosBlock, new: newEosBlock });

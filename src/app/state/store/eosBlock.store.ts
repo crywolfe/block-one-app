@@ -8,11 +8,13 @@ import {
 import { Injectable } from '@angular/core';
 import { EosBlockService } from 'src/app/state/services/eos-block/eosBlock.service';
 
-export interface EosBlockState extends EntityState<EosBlock>, ActiveState<EosBlock> {
-  readonly blockNumber: string;
+export interface EosBlockState
+  extends EntityState<EosBlock>,
+    ActiveState<EosBlock> {
+  readonly block_num: string;
   readonly timestamp: string;
   readonly transactions: string[];
-  readonly blockHashId: string;
+  readonly id: string;
 
   // TODO loading and saving??
 }
@@ -38,18 +40,11 @@ export class EosBlockStore extends EntityStore<EosBlockState> {
     console.log('in getEosBlockAction');
     return this.eosBlockService
       .getEosBlock(headBlockNumber)
-      .subscribe(response => {
-        initialState.blockNumber = response.blockNumber;
-        initialState.blockHashId = response.blockHashId;
+      .subscribe((response) => {
+        initialState.blockNumber = response.block_num;
+        initialState.blockHashId = response.id;
         initialState.transactions = response.transactions;
         initialState.timestamp = response.timestamp;
-
-        console.log({
-          num: response.blockNumber,
-          id: response.blockHashId,
-          tx: response.transactions,
-          timestamp: response.timestamp
-        });
       });
   }
 }
