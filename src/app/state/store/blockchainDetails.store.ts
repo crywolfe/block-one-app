@@ -1,14 +1,15 @@
 import { BlockchainDetails } from 'src/app/state/models/blockchainDetails.model';
 import { EntityState, EntityStore, StoreConfig, ActiveState } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { BlockchainDetailsService } from '../services/blockchainDetails.service';
+import { BlockchainDetailsService } from 'src/app/state/services/blockchain-details/blockchainDetails.service';
 
-export interface BlockChainDetailsState extends EntityState<BlockchainDetails>, ActiveState {
-  readonly currentBlockNumber: string;
-  readonly currentBlockId: number;
+export interface BlockChainDetailsState
+  extends EntityState<BlockchainDetails>,
+    ActiveState<BlockchainDetails> {
+  readonly head_block_num: string;
+  readonly head_block_id: number;
 
   // loading and saving
-
 }
 
 const initialState = {
@@ -28,9 +29,11 @@ export class BlockchainDetailsStore extends EntityStore<BlockChainDetailsState> 
   getBlockchainDetailsAction() {
     console.log('in getBlockChainDetails');
     return this.blockchainDetailsService.getBlockchainDetails().subscribe((response) => {
-      initialState.currentBlockNumber = response.headBlockNumber;
-      initialState.currentBlockid = response.headBlockId;
-      console.log({num: response.headBlockNumber, id: response.headBlockId});
+      if (response) {
+        initialState.currentBlockNumber = response.head_block_num;
+        initialState.currentBlockid = response.head_block_id;
+      }
     });
+
   }
 }

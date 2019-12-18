@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
-
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -14,7 +15,9 @@ import { AppComponent } from './app.component';
     ButtonModule,
     HttpClientModule,
     TableModule,
-    BrowserAnimationsModule],
+    BrowserAnimationsModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

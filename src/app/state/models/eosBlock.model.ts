@@ -1,5 +1,5 @@
 export interface EosBlock {
-  blockNum: string;
+  blockNumber: string;
   timestamp: string;
   transactions: string[];
   blockHashId: string;

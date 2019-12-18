@@ -1,4 +1,4 @@
 export interface BlockchainDetails {
-  headBlockNumber: number;
-  headBlockId: string;
+  head_block_num: number;
+  head_block_id: string;
 }
