@@ -1,0 +1,21 @@
+<p-table [value]="eosBlocks"
+         [loading]="loading"
+         class="ui-column-title">
+
+  <ng-template pTemplate="header">
+    <tr class="ui-column-title">
+      <th class="ui-column-title">Hash</th>
+      <th>Timestamp</th>
+      <th>Action/Tx Count</th>
+    </tr>
+  </ng-template>  
+  <ng-template pTemplate="body" let-block>
+    <tr>
+      <td>{{block.id}}</td>
+      <td>{{block.timestamp}}</td>
+      <td>{{getActionCount(block)}}</td>
+    </tr>
+  </ng-template>
+
+</p-table>
+

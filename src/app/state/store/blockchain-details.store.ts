@@ -1,7 +1,7 @@
-import { BlockchainDetails } from 'src/app/state/models/blockchainDetails.model';
+import { BlockchainDetails } from 'src/app/state/models/blockchain-details.model';
 import { EntityState, EntityStore, StoreConfig, ActiveState } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { BlockchainDetailsService } from 'src/app/state/services/blockchain-details/blockchainDetails.service';
+import { BlockchainDetailsService } from 'src/app/state/services/blockchain-details/blockchain-details.service';
 
 export interface BlockChainDetailsState
   extends EntityState<BlockchainDetails>,

@@ -1,4 +1,4 @@
-import { EosBlock } from 'src/app/state/models/eosBlock.model';
+import { EosBlock } from 'src/app/state/models/eos-block.model';
 import {
   EntityState,
   EntityStore,
@@ -6,7 +6,7 @@ import {
   ActiveState
 } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { EosBlockService } from 'src/app/state/services/eos-block/eosBlock.service';
+import { EosBlockService } from 'src/app/state/services/eos-block/eos-block.service';
 
 export interface EosBlockState
   extends EntityState<EosBlock>,
@@ -38,13 +38,6 @@ export class EosBlockStore extends EntityStore<EosBlockState> {
   getEosBlockAction(headBlockNumber: number) {
     // TODO remove all console logs
     console.log('in getEosBlockAction');
-    return this.eosBlockService
-      .getEosBlock(headBlockNumber)
-      .subscribe((response) => {
-        initialState.blockNumber = response.block_num;
-        initialState.blockHashId = response.id;
-        initialState.transactions = response.transactions;
-        initialState.timestamp = response.timestamp;
-      });
+    return;
   }
 }

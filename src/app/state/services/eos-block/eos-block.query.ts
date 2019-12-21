@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   EosBlockState,
   EosBlockStore
-} from 'src/app/state/store/eosBlock.store';
+} from 'src/app/state/store/eos-block.store';
 
 @Injectable({
   providedIn: 'root'
