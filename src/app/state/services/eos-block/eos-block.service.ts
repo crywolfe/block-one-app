@@ -21,7 +21,9 @@ export class EosBlockService {
   async getBlock(blockNumber: number) {
     const rpc = new JsonRpc(this.URL_INFO, { fetch });
     try {
-      return await rpc.get_block(blockNumber);
+      const result = await rpc.get_block(blockNumber);
+      console.log(result);
+      return result;
     } catch (e) {
       console.log('Caught exception: ' + e);
       throw e;

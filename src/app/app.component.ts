@@ -45,23 +45,41 @@ export class AppComponent implements OnInit, OnDestroy {
         for (let i = this.headBlockNumber; i > this.headBlockNumber - 10; i--) {
           console.log(i);
           const newEosBlock: EosBlock = {
-            block_num: undefined,
             timestamp: undefined,
+            producer: undefined,
+            confirmed: undefined,
+            previous: undefined,
+            transaction_mroot: undefined,
+            action_mroot: undefined,
+            schedule_version: undefined,
+            new_producers: null, // no longer contained in API
+            producer_signature: undefined,
             transactions: undefined,
-            id: undefined
+            id: undefined,
+            block_num: undefined,
+            ref_block_prefix: undefined,
           };
           const temp = this.eosBlockService.getBlock(i);
           // const temp = this.eosBlockService.getEosBlock(i);
           temp.then((block) => {
-            newEosBlock.block_num = block.block_num;
-            newEosBlock.id = block.id;
             newEosBlock.timestamp = block.timestamp;
+            newEosBlock.producer = block.producer;
+            newEosBlock.confirmed = block.confirmed;
+            newEosBlock.previous = block.previous;
+            newEosBlock.transaction_mroot = block.transaction_mroot;
+            newEosBlock.action_mroot = block.action_mroot;
+            newEosBlock.schedule_version = block.schedule_version;
+            newEosBlock.schedule_version = block.schedule_version;
+            newEosBlock.new_producers = block.new_producers;
+            newEosBlock.producer_signature = block.producer_signature;
             newEosBlock.transactions = block.transactions;
+            newEosBlock.id = block.id;
+            newEosBlock.block_num = block.block_num;
+            newEosBlock.ref_block_prefix = block.ref_block_prefix;
           });
           this.eosBlocks.push(newEosBlock);
         }
-        console.log({ eosBlocks: this.eosBlocks.length });
-  
+        console.log({ eosBlocks: this.eosBlocks });
       }
     });
     this.blockchainDetails$ = this.blockchainDetailsQuery.selectEntity(0);
