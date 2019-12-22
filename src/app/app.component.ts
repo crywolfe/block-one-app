@@ -33,13 +33,11 @@ export class AppComponent implements OnInit, OnDestroy {
     private eosBlockService: EosBlockService
   ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   fetchData() {
     this.eosBlocks = [];
-    this.blockchainDetailsService.getBlockchainInfo().then((blockchain) => {
+    this.blockchainDetailsService.getBlockchainInfo().then(blockchain => {
       this.headBlockNumber = blockchain.head_block_num;
       if (this.headBlockNumber) {
         for (let i = this.headBlockNumber; i > this.headBlockNumber - 10; i--) {
@@ -57,11 +55,11 @@ export class AppComponent implements OnInit, OnDestroy {
             transactions: undefined,
             id: undefined,
             block_num: undefined,
-            ref_block_prefix: undefined,
+            ref_block_prefix: undefined
           };
           const temp = this.eosBlockService.getBlock(i);
           // const temp = this.eosBlockService.getEosBlock(i);
-          temp.then((block) => {
+          temp.then(block => {
             newEosBlock.timestamp = block.timestamp;
             newEosBlock.producer = block.producer;
             newEosBlock.confirmed = block.confirmed;
@@ -79,15 +77,13 @@ export class AppComponent implements OnInit, OnDestroy {
           });
           this.eosBlocks.push(newEosBlock);
         }
-        console.log({ eosBlocks: this.eosBlocks });
       }
     });
     this.blockchainDetails$ = this.blockchainDetailsQuery.selectEntity(0);
     this.eosBlock$ = this.eosBlockQuery.selectEntity(0);
   }
 
-
   ngOnDestroy() {
-      this.component$.unsubscribe();
+    this.component$.unsubscribe();
   }
 }

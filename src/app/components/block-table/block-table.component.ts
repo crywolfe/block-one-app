@@ -11,15 +11,14 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./block-table.component.scss']
 })
 export class BlockTableComponent implements OnInit {
-  @Input() eosBlocks;
-  loading: boolean;
+  @Input() eosBlocks: EosBlock;
   faChevronRight = faChevronRight;
   faChevronDown = faChevronDown;
+  divVisible = true;
 
   constructor() {}
 
   ngOnInit() {
-    this.loading = true;
   }
 
   getActionCount(block: EosBlock): number {
@@ -30,8 +29,4 @@ export class BlockTableComponent implements OnInit {
     }
   }
 
-  loadData(event) {
-    event.first = 0;
-    event.rows = 10;
-  }
 }

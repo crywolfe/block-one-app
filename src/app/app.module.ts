@@ -10,8 +10,6 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AppComponent } from './app.component';
 import { BlockTableComponent } from './components/block-table/block-table.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
 @NgModule({
   declarations: [AppComponent, BlockTableComponent],
   imports: [
