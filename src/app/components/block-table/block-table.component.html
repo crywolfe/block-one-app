@@ -57,7 +57,7 @@
               </div>
               <div class="ui-g-12">
                 <b>transactions:</b> 
-                <div *ngFor="let tx of block.transactions">{{tx | json}} </div>
+                <div *ngFor="let tx of block.transactions">status: {{tx.status}}, cpu usage: {{tx.cpu_usage_us}}, net usage words: {{tx.net_usage_words}}</div>
               </div>
               <div class="ui-g-12">
                 <b>Hash:</b> {{block.id}}
