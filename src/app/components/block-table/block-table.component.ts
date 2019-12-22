@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { DataViewModule } from 'primeng/dataview';
 import { EosBlock } from 'src/app/state/models/eos-block.model';
-import { ProgressSpinnerModule } from "primeng/progressspinner";
-
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-block-table',
@@ -13,12 +13,13 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
 export class BlockTableComponent implements OnInit {
   @Input() eosBlocks;
   loading: boolean;
+  faChevronRight = faChevronRight;
+  faChevronDown = faChevronDown;
 
   constructor() {}
 
   ngOnInit() {
     this.loading = true;
-
   }
 
   getActionCount(block: EosBlock): number {

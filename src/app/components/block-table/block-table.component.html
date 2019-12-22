@@ -1,19 +1,77 @@
+<!-- remove loading if not using -->
 <p-table [value]="eosBlocks"
          [loading]="loading"
+         dataKey="id"
          class="ui-column-title">
 
   <ng-template pTemplate="header">
     <tr class="ui-column-title">
+      <th style="width: 2.25em"></th>
       <th class="ui-column-title">Hash</th>
       <th>Timestamp</th>
       <th>Action/Tx Count</th>
     </tr>
   </ng-template>  
-  <ng-template pTemplate="body" let-block>
+  <ng-template pTemplate="body" let-block let-expanded="expanded" let-columns="columns">
     <tr>
+      <td>
+        <a href="#" [pRowToggler]="block">
+          <fa-icon [icon]="expanded ? faChevronDown : faChevronRight"></fa-icon>
+        </a>
+      </td>
       <td>{{block.id}}</td>
       <td>{{block.timestamp}}</td>
       <td>{{getActionCount(block)}}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-block let-columns="columns">
+    <tr>
+      <td [attr.colspan]="4">
+        <div class="ui-g" style="font-size:16px;padding:20px">
+          <div class="ui-g-12 ui-md-9">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>timestamp:</b> {{block.timestamp}}
+              </div>
+              <div class="ui-g-12">
+                <b>producer:</b> {{block.producer}}
+              </div>
+              <div class="ui-g-12">
+                <b>confirmed:</b> {{block.confirmed}}
+              </div>
+              <div class="ui-g-12">
+                <b>previous:</b> {{block.producer}}
+              </div>
+              <div class="ui-g-12">
+                <b>transaction_mroot:</b> {{block.transaction_mroot}}
+              </div>
+              <div class="ui-g-12">
+                <b>action_mroot:</b> {{block.action_mroot}}
+              </div>
+              <div class="ui-g-12">
+                <b>schedule version:</b> {{block.schedule_version}}
+              </div>
+              <div class="ui-g-12">
+                <b>producer signature:</b> {{block.producer_signature}}
+              </div>
+              <div class="ui-g-12">
+                <b>transactions:</b> 
+                <div *ngFor="let tx of block.transactions">{{tx | json}} </div>
+              </div>
+              <div class="ui-g-12">
+                <b>Hash:</b> {{block.id}}
+              </div>
+              <div class="ui-g-12">
+                <b>Block Number:</b> {{block.block_num}}
+              </div>
+              <div class="ui-g-12">
+                <b>Ref Block Prefix:</b> {{block.ref_block_prefix}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
     </tr>
   </ng-template>
 

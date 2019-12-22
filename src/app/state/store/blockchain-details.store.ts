@@ -26,9 +26,9 @@ export class BlockchainDetailsStore extends EntityStore<BlockChainDetailsState> 
     super(initialState);
   }
 
-  getBlockchainDetailsAction() {
+  async getBlockchainDetailsAction() {
     console.log('in getBlockChainDetails');
-    return this.blockchainDetailsService.getBlockchainDetails().subscribe((response) => {
+    return this.blockchainDetailsService.getBlockchainInfo().then((response) => {
       if (response) {
         initialState.currentBlockNumber = response.head_block_num;
         initialState.currentBlockid = response.head_block_id;
