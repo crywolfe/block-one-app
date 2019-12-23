@@ -8,6 +8,9 @@ import { EosBlockQuery } from './state/services/eos-block/eos-block.query';
 import { EosBlockService } from './state/services/eos-block/eos-block.service';
 import { EosBlock } from './state/models/eos-block.model';
 
+import * as Mustache from 'mustache';
+import * as MarkdownIt from 'markdown-it';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,15 +19,15 @@ import { EosBlock } from './state/models/eos-block.model';
 export class AppComponent implements OnInit, OnDestroy {
   readonly title = 'Block One EOS Fetch App';
 
-  eosInfo = {};
-  currentBlockNumber;
-
   component$ = new Subject();
 
   blockchainDetails$: Observable<BlockchainDetails>;
   eosBlock$: Observable<EosBlock>;
   headBlockNumber: number;
   eosBlocks: EosBlock[];
+  fetchDataClicked: boolean;
+  mustacheOutput: string;
+  mustacheMarkdownOutput: string;
 
   constructor(
     private blockchainDetailsQuery: BlockchainDetailsQuery,
@@ -33,15 +36,40 @@ export class AppComponent implements OnInit, OnDestroy {
     private eosBlockService: EosBlockService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchDataClicked = false;
+
+    const templateData = {
+      owner: 'Gerry',
+      issuer: 'Wolfe',
+      ram_payer: 'JOE',
+      maximum_supply: '350',
+      nowrap: 'NO_WRAP',
+      memo: 'G-MEMO',
+      quantity: '1000',
+      'if memo': true,
+      'memo nowrap': 'No Wrap',
+      $action: 'ACTION',
+      account: 'ACCOUNT'
+
+    };
+
+    // TODO testing...
+    const template = '## {{#if memo}} {{memo nowrap}}There is a {{$action.account}} memo attached to the transfer stating:' +
+      ' {{memo}} {{/if memo}}';
+    this.mustacheOutput = Mustache.render(template, templateData);
+
+    const md = new MarkdownIt();
+    this.mustacheMarkdownOutput = md.render(this.mustacheOutput);
+  }
 
   fetchData() {
     this.eosBlocks = [];
-    this.blockchainDetailsService.getBlockchainInfo().then(blockchain => {
+    this.fetchDataClicked = true;
+    this.blockchainDetailsService.getBlockchainInfo().then((blockchain) => {
       this.headBlockNumber = blockchain.head_block_num;
       if (this.headBlockNumber) {
         for (let i = this.headBlockNumber; i > this.headBlockNumber - 10; i--) {
-          console.log(i);
           const newEosBlock: EosBlock = {
             timestamp: undefined,
             producer: undefined,
@@ -57,9 +85,7 @@ export class AppComponent implements OnInit, OnDestroy {
             block_num: undefined,
             ref_block_prefix: undefined
           };
-          const temp = this.eosBlockService.getBlock(i);
-          // const temp = this.eosBlockService.getEosBlock(i);
-          temp.then(block => {
+          this.eosBlockService.getBlock(i).then((block) => {
             newEosBlock.timestamp = block.timestamp;
             newEosBlock.producer = block.producer;
             newEosBlock.confirmed = block.confirmed;
@@ -68,8 +94,10 @@ export class AppComponent implements OnInit, OnDestroy {
             newEosBlock.action_mroot = block.action_mroot;
             newEosBlock.schedule_version = block.schedule_version;
             newEosBlock.schedule_version = block.schedule_version;
+            // @ts-ignore
             newEosBlock.new_producers = block.new_producers;
             newEosBlock.producer_signature = block.producer_signature;
+            // @ts-ignore
             newEosBlock.transactions = block.transactions;
             newEosBlock.id = block.id;
             newEosBlock.block_num = block.block_num;
@@ -79,8 +107,9 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     });
-    this.blockchainDetails$ = this.blockchainDetailsQuery.selectEntity(0);
-    this.eosBlock$ = this.eosBlockQuery.selectEntity(0);
+    // this.blockchainDetails$ = this.blockchainDetailsQuery.selectEntity(0);
+    // this.eosBlock$ = this.eosBlockQuery.selectEntity(0);
+
   }
 
   ngOnDestroy() {

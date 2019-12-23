@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { DataViewModule } from 'primeng/dataview';
 import { EosBlock } from 'src/app/state/models/eos-block.model';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +12,6 @@ export class BlockTableComponent implements OnInit {
   @Input() eosBlocks: EosBlock;
   faChevronRight = faChevronRight;
   faChevronDown = faChevronDown;
-  divVisible = true;
 
   constructor() {}
 
@@ -26,6 +23,18 @@ export class BlockTableComponent implements OnInit {
       return block.transactions.length;
     } else {
       return 0;
+    }
+  }
+
+  getAccountName(tx): string {
+    if (
+      tx &&
+      tx.trx &&
+      tx.trx.transaction &&
+      tx.trx.transaction.actions &&
+      tx.trx.transaction.actions[0]
+    ) {
+      return tx.trx.transaction.actions[0].account;
     }
   }
 

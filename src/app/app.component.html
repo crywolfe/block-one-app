@@ -1,22 +1,19 @@
 <div class="toolbar" role="banner">
-  
-  <span style="justify-content: center;">EOS Fetch and Display App</span>
     <div class="spacer"></div>
-  
 </div>
 
 <div class="content" role="main">
 
-  <h2 class="card highlight-card">{{ title }} Button Below</h2>
-
-  <input type="hidden" #selection>
+  <h2 class="card highlight-card">{{ title }}</h2>
 
   <p>Shows the 10 most recent blocks</p>
-  <p-button type="button" label="LOAD" (click)="fetchData()">
-  </p-button>
+  <p-button type="button" label="LOAD" (click)="fetchData()"></p-button>
 
-  <app-block-table [eosBlocks]="eosBlocks"></app-block-table>
+  <ng-container *ngIf="fetchDataClicked">
+    <app-block-table [eosBlocks]="eosBlocks"></app-block-table>
+  </ng-container>
 
-  <h2>Ricardian Contract</h2>
+  <markdown [data]="mustacheMarkdownOutput"></markdown>
+
 </div>
 
