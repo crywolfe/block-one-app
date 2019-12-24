@@ -10,7 +10,7 @@
   <p-button type="button" label="LOAD" (click)="fetchData()"></p-button>
 
   <ng-container *ngIf="fetchDataClicked">
-    <app-block-table [eosBlocks]="eosBlocks"></app-block-table>
+    <app-block-table [eosBlocks]="eosBlocks" [loading]="loading"></app-block-table>
   </ng-container>
 
   <markdown [data]="mustacheMarkdownOutput"></markdown>

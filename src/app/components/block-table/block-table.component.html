@@ -1,7 +1,5 @@
-<!-- TODO remove loading if not using -->
-<!-- <div *ngIf="loading === false">
-          [loading]="loading"-->
 <p-table [value]="eosBlocks"
+         [loading]="eosBlocks.length < 10"
          dataKey="id"
          class="ui-column-title">
   <ng-template pTemplate="header">
@@ -79,6 +77,3 @@
     </tr>
   </ng-template>
 </p-table>
-
-<!-- </div> -->
-

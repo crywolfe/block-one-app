@@ -14,7 +14,6 @@ export class RicardianContractComponent implements OnInit {
 
   ricardianContract: string;
   ricardianDisplay = false;
-  output: string;
 
   constructor(
     // abiQuery: AbiQuery,
@@ -27,7 +26,6 @@ export class RicardianContractComponent implements OnInit {
       account.abi.actions.forEach((action) => {
         const parsedRicardian = this.parseContract(action.ricardian_contract);
         ricardian += parsedRicardian;
-        // console.log({action, ricardian: action.ricardian_contract});
       });
       if (ricardian) {
         const data = {

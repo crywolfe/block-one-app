@@ -9,7 +9,8 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./block-table.component.scss']
 })
 export class BlockTableComponent implements OnInit {
-  @Input() eosBlocks: EosBlock;
+  @Input() eosBlocks: EosBlock[];
+  @Input() loading: boolean;
   faChevronRight = faChevronRight;
   faChevronDown = faChevronDown;
 

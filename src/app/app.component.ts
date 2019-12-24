@@ -10,6 +10,8 @@ import { EosBlock } from './state/models/eos-block.model';
 
 import * as Mustache from 'mustache';
 import * as MarkdownIt from 'markdown-it';
+import {GetBlockResult} from 'eosjs/dist/eosjs-rpc-interfaces';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -22,12 +24,15 @@ export class AppComponent implements OnInit, OnDestroy {
   component$ = new Subject();
 
   blockchainDetails$: Observable<BlockchainDetails>;
-  eosBlock$: Observable<EosBlock>;
+  eosBlock$: Observable<GetBlockResult>;
+  eosBlocks$: Observable<GetBlockResult[]>;
   headBlockNumber: number;
-  eosBlocks: EosBlock[];
+  eosBlocks: GetBlockResult[];
   fetchDataClicked: boolean;
   mustacheOutput: string;
   mustacheMarkdownOutput: string;
+  loading$: Observable<boolean>;
+  loading: boolean;
 
   constructor(
     private blockchainDetailsQuery: BlockchainDetailsQuery,
@@ -38,6 +43,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchDataClicked = false;
+    this.loading$ = this.eosBlockQuery.selectLoading();
+    this.loading$.subscribe((loading) => {
+      console.log({loading});
+      this.loading = loading;
+    });
 
     const templateData = {
       owner: 'Gerry',
@@ -66,49 +76,21 @@ export class AppComponent implements OnInit, OnDestroy {
   fetchData() {
     this.eosBlocks = [];
     this.fetchDataClicked = true;
+
     this.blockchainDetailsService.getBlockchainInfo().then((blockchain) => {
       this.headBlockNumber = blockchain.head_block_num;
+      console.log(this.headBlockNumber);
       if (this.headBlockNumber) {
-        for (let i = this.headBlockNumber; i > this.headBlockNumber - 10; i--) {
-          const newEosBlock: EosBlock = {
-            timestamp: undefined,
-            producer: undefined,
-            confirmed: undefined,
-            previous: undefined,
-            transaction_mroot: undefined,
-            action_mroot: undefined,
-            schedule_version: undefined,
-            new_producers: null, // no longer contained in API
-            producer_signature: undefined,
-            transactions: undefined,
-            id: undefined,
-            block_num: undefined,
-            ref_block_prefix: undefined
-          };
-          this.eosBlockService.getBlock(i).then((block) => {
-            newEosBlock.timestamp = block.timestamp;
-            newEosBlock.producer = block.producer;
-            newEosBlock.confirmed = block.confirmed;
-            newEosBlock.previous = block.previous;
-            newEosBlock.transaction_mroot = block.transaction_mroot;
-            newEosBlock.action_mroot = block.action_mroot;
-            newEosBlock.schedule_version = block.schedule_version;
-            newEosBlock.schedule_version = block.schedule_version;
-            // @ts-ignore
-            newEosBlock.new_producers = block.new_producers;
-            newEosBlock.producer_signature = block.producer_signature;
-            // @ts-ignore
-            newEosBlock.transactions = block.transactions;
-            newEosBlock.id = block.id;
-            newEosBlock.block_num = block.block_num;
-            newEosBlock.ref_block_prefix = block.ref_block_prefix;
-          });
-          this.eosBlocks.push(newEosBlock);
+          this.eosBlockService.getBlocks(this.headBlockNumber);
         }
-      }
     });
     // this.blockchainDetails$ = this.blockchainDetailsQuery.selectEntity(0);
     // this.eosBlock$ = this.eosBlockQuery.selectEntity(0);
+    this.eosBlocks$ = this.eosBlockQuery.selectAll();
+    this.eosBlocks$.subscribe((blocks) => {
+      console.log({blocks});
+      this.eosBlocks = blocks;
+    });
 
   }
 
