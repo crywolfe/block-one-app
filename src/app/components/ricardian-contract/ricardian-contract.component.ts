@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AbiQuery } from 'src/app/state/services/abi/abi.query';
-import { AbiService } from 'src/app/state/services/abi/abi.service';
+import {Component, OnInit, Input} from '@angular/core';
+import {AbiService} from 'src/app/state/services/abi/abi.service';
 import * as MarkdownIt from 'markdown-it';
 import * as Mustache from 'mustache';
 
@@ -15,10 +14,7 @@ export class RicardianContractComponent implements OnInit {
   ricardianContract: string;
   ricardianDisplay = false;
 
-  constructor(
-    // abiQuery: AbiQuery,
-    private abiService: AbiService
-  ) {}
+  constructor(private abiService: AbiService) {}
 
   ngOnInit() {
     this.abiService.getAbi(this.accountName).then(account => {
@@ -46,7 +42,6 @@ export class RicardianContractComponent implements OnInit {
           'nowrap from': 'Mike',
           'nowrap to': 'Joshua'
           // '$action.account': 'ACCOUNT' // ????
-
         };
         const md = new MarkdownIt();
         const mustachedRicardian = Mustache.render(ricardian, data);
@@ -55,7 +50,7 @@ export class RicardianContractComponent implements OnInit {
     });
   }
 
-  showRicardianModal() {
+  showRicardianModal(): void {
     this.ricardianDisplay = true;
   }
 
