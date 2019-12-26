@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { EosBlock } from 'src/app/state/models/eos-block.model';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -8,16 +8,11 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './block-table.component.html',
   styleUrls: ['./block-table.component.scss']
 })
-export class BlockTableComponent implements OnInit {
+export class BlockTableComponent {
   @Input() eosBlocks: EosBlock[];
   @Input() loading: boolean;
   faChevronRight = faChevronRight;
   faChevronDown = faChevronDown;
-
-  constructor() {}
-
-  ngOnInit() {
-  }
 
   getActionCount(block: EosBlock): number {
     if (block && block.transactions) {
@@ -38,5 +33,4 @@ export class BlockTableComponent implements OnInit {
       return tx.trx.transaction.actions[0].account;
     }
   }
-
 }
