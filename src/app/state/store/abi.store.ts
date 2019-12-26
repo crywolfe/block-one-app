@@ -6,7 +6,6 @@ import {
   ActiveState
 } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { AbiService } from 'src/app/state/services/abi/abi.service';
 
 export interface AbiState
   extends EntityState<GetAbiResult>,
@@ -25,7 +24,7 @@ const initialState = {
 })
 @StoreConfig({ name: 'abi' })
 export class AbiStore extends EntityStore<AbiState> {
-  constructor(private readonly abiService: AbiService) {
+  constructor() {
     super(initialState);
   }
 }
