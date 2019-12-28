@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {from, Observable, of} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import { JsonRpc } from 'eosjs';
 import {EosBlockStore} from 'src/app/state/store/eos-block.store';
 import {GetBlockResult} from 'eosjs/dist/eosjs-rpc-interfaces';

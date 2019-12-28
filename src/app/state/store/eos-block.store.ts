@@ -1,12 +1,10 @@
-import { EosBlock } from 'src/app/state/models/eos-block.model';
 import {
   EntityState,
   EntityStore,
   StoreConfig,
-  ActiveState, guid
+  ActiveState,
 } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { EosBlockService } from 'src/app/state/services/eos-block/eos-block.service';
 import {GetBlockResult} from 'eosjs/dist/eosjs-rpc-interfaces';
 
 export interface EosBlockState extends EntityState<GetBlockResult>, ActiveState<GetBlockResult> {
@@ -25,5 +23,3 @@ export class EosBlockStore extends EntityStore<EosBlockState, GetBlockResult> {
     super();
   }
 }
-
-// TODO HANDLE UI

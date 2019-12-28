@@ -24,6 +24,7 @@ export class RicardianContractComponent implements OnInit {
         ricardian += parsedRicardian;
       });
       if (ricardian) {
+        // Demo Data
         const data = {
           owner: 'Gerry',
           issuer: 'Wolfe',
@@ -41,7 +42,7 @@ export class RicardianContractComponent implements OnInit {
           to: 'Sally',
           'nowrap from': 'Mike',
           'nowrap to': 'Joshua'
-          // '$action.account': 'ACCOUNT' // ????
+          // '$action.account': 'ACCOUNT' // Not sure how this should play with Mustache
         };
         const md = new MarkdownIt();
         const mustachedRicardian = Mustache.render(ricardian, data);
