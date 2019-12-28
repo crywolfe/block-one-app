@@ -47,14 +47,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.blockchainDetailsService.getBlockchainInfo().then((blockchain) => {
       this.headBlockNumber = blockchain.head_block_num;
-      console.log(this.headBlockNumber);
       if (this.headBlockNumber) {
           this.eosBlockService.getBlocks(this.headBlockNumber);
         }
     });
     this.eosBlocks$ = this.eosBlockQuery.selectAll();
     this.eosBlocks$.pipe(takeUntil(this.component$)).subscribe((blocks) => {
-      console.log({blocks});
       this.eosBlocks = blocks;
     });
   }
