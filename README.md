@@ -24,7 +24,7 @@ I deployed this app to Zeit so that it can be tested in a pseudo-production envi
 
 It can be found here.
 
-[Block One App](https://zeit.co/crywolfe/block-one-app/8gaes06y6)
+[Block One App](https://block-one-app.now.sh/)
 
 There are also instructions below to run this on a local dev server and instructions below to run the unit tests. No e2e tests were required for this project.
 
