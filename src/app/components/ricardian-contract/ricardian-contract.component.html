@@ -1,7 +1,7 @@
 <div>
   <p>
-    Click button to see Ricardian Contract
-    <ng-container *ngIf="accountName">
+    <ng-container *ngIf="accountName && (actionsLength > 0) && (ricardianContract != null); else noRicardianContract">
+      Click button to see Ricardian Contract
       <button type="button" (click)="showRicardianModal()" pButton icon="pi pi-info-circle" [label]="accountName"></button>
     </ng-container>
   </p>
@@ -11,3 +11,7 @@
           [contentStyle]="{'max-height':'500px', 'max-width': '700px'}">
   <markdown [data]="ricardianContract"></markdown>
 </p-dialog>
+
+<ng-template #noRicardianContract>
+  <p>No Ricardian Contract exists for this transaction.</p>
+</ng-template>

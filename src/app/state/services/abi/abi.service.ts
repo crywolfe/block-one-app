@@ -11,10 +11,19 @@ export class AbiService {
   async getAbi(accountName: string): Promise<GetAbiResult> {
     const rpc = new JsonRpc(this.URL_INFO, { fetch });
     try {
-      return await rpc.get_abi(accountName);
+      const response = await rpc.get_abi(accountName);
+      await this.delay(1200);
+      return response;
     } catch (e) {
       console.log('Caught exception: ' + e);
       throw e;
     }
   }
-}
+
+  delay(val) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(val);
+      });
+    });
+  }}

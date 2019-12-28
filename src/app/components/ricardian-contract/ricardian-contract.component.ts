@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {AbiService} from 'src/app/state/services/abi/abi.service';
 import * as MarkdownIt from 'markdown-it';
 import * as Mustache from 'mustache';
+import {GetAbiResult} from 'eosjs/dist/eosjs-rpc-interfaces';
 
 @Component({
   selector: 'app-ricardian-contract',
@@ -10,19 +11,29 @@ import * as Mustache from 'mustache';
 })
 export class RicardianContractComponent implements OnInit {
   @Input() accountName: string;
-
+  actionsLength: number;
   ricardianContract: string;
   ricardianDisplay = false;
 
   constructor(private abiService: AbiService) {}
 
   ngOnInit() {
-    this.abiService.getAbi(this.accountName).then(account => {
+    this.abiService.getAbi(this.accountName).then((account: GetAbiResult) => {
       let ricardian = '';
+      this.actionsLength = account.abi.actions.length;
       account.abi.actions.forEach((action) => {
-        const parsedRicardian = this.parseContract(action.ricardian_contract);
-        ricardian += parsedRicardian;
+        ricardian = '';
+        if (action.ricardian_contract) {
+          ricardian += action.name + '\n';
+          const parsedRicardian = this.parseContract(action.ricardian_contract);
+          ricardian += parsedRicardian;
+        }
       });
+      if (account.abi.ricardian_clauses.length > 0) {
+        account.abi.ricardian_clauses.forEach((clause) => {
+          ricardian += clause.id + '\n' + clause.body;
+        });
+      }
       if (ricardian) {
         // Demo Data
         const data = {

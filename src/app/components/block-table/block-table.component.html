@@ -58,8 +58,10 @@
                 <div class="ui-g-12">
                   <b>transactions:</b>
                   <div *ngFor="let tx of block.transactions">status: {{tx.status}}, cpu usage: {{tx.cpu_usage_us}}, net usage words: {{tx.net_usage_words}}
-                    <div><b>first</b> action account name: {{getAccountName(tx)}}</div>
-                    <app-ricardian-contract [accountName]="getAccountName(tx)"></app-ricardian-contract>
+                    <ng-container *ngIf="getAccountName(tx); else noAccountName">
+                      <div><b>first</b> action account name: {{getAccountName(tx)}}</div>
+                      <app-ricardian-contract [accountName]="getAccountName(tx)"></app-ricardian-contract>
+                    </ng-container>
                   </div>
                 </div>
                 <div class="ui-g-12">
@@ -79,3 +81,7 @@
     </ng-template>
   </p-table>
 </ng-container>
+
+<ng-template #noAccountName>
+  <p>There is no account name for this transaction.</p>
+</ng-template>
