@@ -1,11 +1,9 @@
 <div class="toolbar" role="banner">
-    <div class="spacer"></div>
+  <div class="spacer" style="text-align: center">Gerry Wolfe Interview Assignment</div>
 </div>
 
 <div class="content" role="main">
-
   <h2 class="card highlight-card">{{ title }}</h2>
-
   <p>Shows the 10 most recent blocks</p>
   <p-button type="button" label="LOAD" (click)="fetchData()"></p-button>
 
@@ -14,6 +12,5 @@
   </ng-container>
 
   <markdown [data]="mustacheMarkdownOutput"></markdown>
-
 </div>
 
