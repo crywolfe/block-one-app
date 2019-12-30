@@ -16,7 +16,7 @@ The three most significant issues I ran into were:
   
         Since each transaction had multiple Ricardian contracts, I wasn't sure how best to display all them, so I simply displayed the first one contained in the transaction (if they contained data).
   
-Typically, if I was in a development and production environment, I would seek input from individuals in the organization who either developed the data model or someone with more knowledge about using the specific data models, so that I could ask about the intended use and UI expectation. I'm not shy about asking questions, however, I didn't do that here only because I thought that was out of scope of the intention of this project. 
+Typically, if I was in a development and production environment, I would seek input from individuals in the organization who either developed the data model or someone with more knowledge about using the specific data models so that I could ask about the intended use and UI expectation. I'm not shy about asking questions, however, I didn't do that here only because I thought that was out of scope of the intention of this project. 
 
 ## Testing
 
