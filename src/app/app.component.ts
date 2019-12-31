@@ -38,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loading$.subscribe((loading) => {
       this.loading = loading;
     });
-    console.log('Hi Chris,\nI appreciate and thank you for the opportunity to interview. \n Sincerely, Gerry');
+    console.log('Hi Chris,\nI appreciate the opportunity. \n Sincerely, Gerry');
   }
 
   fetchData() {
