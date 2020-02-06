@@ -2,8 +2,8 @@
   <p>
     <ng-container *ngIf="accountName && (actionsLength > 0) && (ricardianContract != null); else noRicardianContract">
       Click button to see Ricardian Contract
-      <button type="button" (click)="showRicardianModal()" pButton icon="pi pi-info-circle" [label]="accountName"></button>
     </ng-container>
+    <button type="button" (click)="showRicardianModal()" pButton icon="pi pi-info-circle" [label]="accountName"></button>
   </p>
 </div>
 <p-dialog header="Ricardian Contract"
