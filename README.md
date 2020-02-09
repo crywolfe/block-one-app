@@ -1,4 +1,4 @@
-# BlockOneApp
+# EOS Block retrieval App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
@@ -8,10 +8,9 @@ The App.
 
 ## Notes
 
-Thank you for the opportunity to build this app.
 The three most significant issues I ran into were:
   1. Using an API that returned the EOS blockchain data in a stable, consistent manner. I found one but it took some time to research.
-  2. I was looking for where the Mustache values in the Ricardian contracts would be stored in the blockchain objects but was unable to find them. So, I hardcoded them instead and notated that in a code comment. Once that data is found, I would remove the static hard coded values and replace them dynamically with data from the chain. 
+  2. I was looking for where the Mustache values in the Ricardian contracts would be stored in the blockchain objects but was unable to find them. So, I hardcoded them instead and notated that in a code comment. Once that data is found, I will remove the static hard coded values and replace them dynamically with data from the chain. 
   3. The Abi data model's transactions array object contained a trx object which contained more transactions which contained actions and then accounts and Ricardian contracts. That was a bit confusing.
   
         Since each transaction had multiple Ricardian contracts, I wasn't sure how best to display all them, so I simply displayed the first one contained in the transaction (if they contained data).
@@ -24,7 +23,7 @@ I deployed this app so that it can be tested in a pseudo-production environment.
 
 It can be found here.
 
-[Block One App](https://block-one-app.now.sh/)
+[EOS Block App](https://block-one-app.now.sh/)
 
 There are also instructions below to run this on a local dev server and instructions below to run the unit tests. No e2e tests were required for this project. First, make sure to git clone the project.
 

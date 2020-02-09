@@ -14,7 +14,7 @@ import {takeUntil} from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  readonly title = 'Block One EOS Fetch App';
+  readonly title = 'EOS Fetch App';
   readonly mustacheMarkdownOutput: string;
 
   component$ = new Subject();
@@ -26,7 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
   eosBlocks: GetBlockResult[];
 
   constructor(
-    private blockchainDetailsQuery: BlockchainDetailsQuery,
     private blockchainDetailsService: BlockchainDetailsService,
     private eosBlockQuery: EosBlockQuery,
     private eosBlockService: EosBlockService
@@ -38,7 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loading$.subscribe((loading) => {
       this.loading = loading;
     });
-    console.log('Hi Chris,\nI appreciate the opportunity. \n Sincerely, Gerry');
   }
 
   fetchData() {
